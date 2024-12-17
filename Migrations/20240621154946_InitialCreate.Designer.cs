@@ -26,23 +26,23 @@ namespace DotNetCoreSqlDb.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("DotNetCoreSqlDb.Models.Todo", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+{
+                b.Property<int>("ID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn); // Set MySQL identity column
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                b.Property<DateTime>("CreatedDate")
+                    .HasColumnType("datetime"); // Change to MySQL datetime type
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                b.Property<string>("Description")
+                    .HasColumnType("text"); // Change to MySQL text type
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.HasKey("ID");
 
-                    b.HasKey("ID");
+                b.ToTable("Todo");
+            });
 
-                    b.ToTable("Todo");
-                });
 #pragma warning restore 612, 618
         }
     }

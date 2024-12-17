@@ -11,9 +11,17 @@ if(builder.Environment.IsDevelopment())
 }
  else
  {
-     builder.Services.AddDbContext<MyDatabaseContext>(options =>
-         options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_MYSQL_CONNECTIONSTRING")));
-     builder.Services.AddStackExchangeRedisCache(options =>
+    // builder.Services.AddDbContext<MyDatabaseContext>(options =>
+    //     options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_MYSQL_CONNECTIONSTRING")));
+     // builder.Services.AddStackExchangeRedisCache(options =>
+     //{
+     //options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
+     //options.InstanceName = "SampleInstance";
+     //});
+
+     builder.Services.AddDbContext<MyDatabaseContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("AZURE_MYSQL_CONNECTIONSTRING"), new MySqlServerVersion(new Version(8, 0, 21)))); 
+     
+    builder.Services.AddStackExchangeRedisCache(options =>
      {
      options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
      options.InstanceName = "SampleInstance";
